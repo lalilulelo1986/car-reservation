@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: local
+  jpa:
+    show-sql: true
+  jackson:
+    date-format: "dd.MM.yyyy HH:mm:ss"
+
+hibernate:
+  cache:
+    use_second_level_cache: true
+    factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+
+logging:
+  file:
+    path: logs/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
