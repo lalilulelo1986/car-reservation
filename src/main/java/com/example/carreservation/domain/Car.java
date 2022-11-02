@@ -3,32 +3,34 @@ package com.example.carreservation.domain;
 import com.example.carreservation.domain.dto.CarDto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.List;
 
 public class Car {
-    private Long id = null;
-    @NotBlank
-    private final String make;
-    @NotBlank
-    private final String model;
-    @Pattern(regexp = "C[\\d]+")
-    private String number;
-    private List<CarReservation> carReservation;
+    public final static String CAR_NUMBER_PREFIX = "C";
 
-    public Car(Long id, String make, String model, String number, List<CarReservation> carReservation) {
+    private Long id = null;
+    @NotNull
+    private final String make;
+    @NotNull
+    private final String model;
+    @Pattern(regexp = CAR_NUMBER_PREFIX + "[\\d]+")
+    private final String number;
+    private final Boolean active;
+
+    public Car(Long id, String make, String model, String number, Boolean active) {
         this.id = id;
         this.make = make;
         this.model = model;
         this.number = number;
-        this.carReservation = carReservation;
+        this.active = active;
     }
 
-    public Car(String make, String model, String number, List<CarReservation> carReservation) {
+    public Car(String make, String model, String number, Boolean active) {
         this.make = make;
         this.model = model;
         this.number = number;
-        this.carReservation = carReservation;
+        this.active = active;
     }
 
     public Long getId() {
@@ -51,15 +53,7 @@ public class Car {
         return new CarDto(id, this.make, this.model, this.getNumber());
     }
 
-    public List<CarReservation> getCarReservation() {
-        return carReservation;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public void setCarReservation(List<CarReservation> carReservation) {
-        this.carReservation = carReservation;
+    public Boolean getActive() {
+        return active;
     }
 }

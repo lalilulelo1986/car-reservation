@@ -1,47 +1,38 @@
 package com.example.carreservation.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CarDto {
     private Long id;
     private String make;
     private String model;
     private String number;
 
+    private CarDto() {
+        super();
+    }
+
     public CarDto(Long id, String make, String model, String number) {
         this.id = id;
         this.make = make;
         this.model = model;
         this.number = number;
+//        this.active = active;
     }
 
     public String getMake() {
         return make;
     }
 
-    public void setMake(String make) {
-        this.make = make;
-    }
-
     public String getModel() {
         return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
     }
 
     public String getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

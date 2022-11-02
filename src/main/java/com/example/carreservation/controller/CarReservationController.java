@@ -1,17 +1,20 @@
 package com.example.carreservation.controller;
 
-import com.example.carreservation.domain.Car;
 import com.example.carreservation.domain.CarReservation;
-import com.example.carreservation.domain.CarReservationService;
+import com.example.carreservation.domain.dto.CarDto;
+import com.example.carreservation.domain.service.CarReservationService;
 import com.example.carreservation.domain.dto.CarReservationDto;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api/v1/car-reservation")
+@RequestMapping("api/v1/car/reservation")
 public class CarReservationController {
     private final CarReservationService carReservationService;
 
@@ -20,33 +23,36 @@ public class CarReservationController {
     }
 
     @PostMapping
-    CarReservation reserve(@RequestBody CarReservationDto carReservationDto) {
-        return carReservationService.tryReserve(carReservationDto.getUserId(), carReservationDto.getCarId(), carReservationDto.getFromTime(), carReservationDto.getToTime());
+    CarReservationDto reserve(@RequestBody CarReservationDto carReservationDto) {
+        return carReservationService.createReservation(
+                carReservationDto.getUserId(),
+                carReservationDto.getCarId(),
+                carReservationDto.getFromTime(),
+                carReservationDto.getToTime()
+        ).toDto();
     }
 
     @GetMapping
-    List<CarReservation> findAll() {
-        return this.carReservationService.findAll();
+    List<CarReservationDto> findAll() {
+        return carReservationService.findAll().stream().map(CarReservation::toDto).collect(Collectors.toList());
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<Object> delete(@PathVariable Long id) {
+        carReservationService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("available")
-    List<Car> findAvailableCars(
+    List<CarDto> findAvailableCarsByPeriod(
             @RequestParam(name = "startTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
             @RequestParam(name = "endTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime
     ) {
-        return this.carReservationService.findAvailableCars(startTime, endTime);
-    }
-
-    @GetMapping("reserved")
-    List<Car> findReservedCars(
-            @RequestParam(name = "startTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
-            @RequestParam(name = "endTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime
-    ) {
-        return this.carReservationService.findAvailableCars2(startTime, endTime);
+        return carReservationService.findAvailableCarsByPeriod(startTime, endTime);
     }
 
     @GetMapping("{id}")
-    CarReservation findById(@PathVariable Long id) {
-        return this.carReservationService.findById(id);
+    CarReservationDto findById(@PathVariable Long id) {
+        return this.carReservationService.findById(id).toDto();
     }
 }

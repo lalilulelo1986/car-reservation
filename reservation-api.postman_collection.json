@@ -1,0 +1,188 @@
+{
+	"variables": [],
+	"info": {
+		"name": "reservation-api",
+		"_postman_id": "508e5cde-d262-79bd-aeed-bd4a3162183c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/v1/car",
+			"request": {
+				"url": "http://localhost:8080/api/v1/car",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"model\": \"Sandero\",\n    \"make\": \"Renault\"\n    \n}"
+				},
+				"description": "Добавление автомобиля"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/car",
+			"request": {
+				"url": "http://localhost:8080/api/v1/car",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Список автомобилей"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/car/1",
+			"request": {
+				"url": "http://localhost:8080/api/v1/car/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Поиск авто по id"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/car/1",
+			"request": {
+				"url": "http://localhost:8080/api/v1/car/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"make\": \"Renault\",\n    \"model\": \"Arcana\"\n}"
+				},
+				"description": "update car"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/car-reservation",
+			"request": {
+				"url": "http://localhost:8080/api/v1/reservations",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 1,\n    \"fromTime\": \"2023-11-03T23:35:30\",\n    \"toTime\": \"2022-11-03T23:45:30\",\n    \"carId\": 1\n}"
+				},
+				"description": "Резервация автомобиля"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/car/reservation",
+			"request": {
+				"url": "http://localhost:8080/api/v1/car-reservation",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Полный список резерваций"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/car/reservation/2",
+			"request": {
+				"url": "http://localhost:8080/api/v1/car-reservation/2",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "резервация по id"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/cars/1/reservations",
+			"request": {
+				"url": "http://localhost:8080/api/v1/cars/1/reservations",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "find car's reservations"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/car/reservation/available?startTime=2022-11-03T23%3A35%3A30&endTime=2022-11-03T23%3A50%3A30",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/api/v1/car/reservation/available?startTime=2022-11-03T23%3A35%3A30&endTime=2022-11-03T23%3A50%3A30",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"car",
+						"reservation",
+						"available"
+					],
+					"query": [
+						{
+							"key": "startTime",
+							"value": "2022-11-03T23%3A35%3A30",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "endTime",
+							"value": "2022-11-03T23%3A50%3A30",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Список доступных авто за период"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/car/1",
+			"request": {
+				"url": "http://localhost:8080/api/v1/car/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "Удалить авто"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/car-reservation/1",
+			"request": {
+				"url": "http://localhost:8080/api/v1/car-reservation/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "delete reservation"
+			},
+			"response": []
+		}
+	]
+}

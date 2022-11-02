@@ -1,11 +1,7 @@
 package com.example.carreservation.domain.exception;
 
-public class ReservationException extends RuntimeException {
-    public ReservationException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public ReservationException(String message) {
-        super(message);
+public class ReservationException extends LocalizedRuntimeException {
+    public ReservationException(String message, Object... params) {
+        super(message, params);
     }
 }

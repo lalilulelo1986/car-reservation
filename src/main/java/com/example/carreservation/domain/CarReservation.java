@@ -1,52 +1,45 @@
 package com.example.carreservation.domain;
 
+import com.example.carreservation.domain.dto.CarReservationDto;
+
 import java.time.LocalDateTime;
 
 public class CarReservation {
-    public Long getId() {
-        return id;
-    }
+    private final Long id;
+    private final Long userId;
+    private final Long carId;
+    private final LocalDateTime fromTime;
+    private final LocalDateTime toTime;
 
-    public CarReservation(Long id, LocalDateTime fromTime, LocalDateTime toTime) {
+    public CarReservation(Long id, Long userId, Long carId, LocalDateTime fromTime, LocalDateTime toTime) {
         this.id = id;
-//        this.car = car;
+        this.userId = userId;
+        this.carId = carId;
         this.fromTime = fromTime;
         this.toTime = toTime;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getCarId() {
+        return carId;
     }
 
     public LocalDateTime getFromTime() {
         return fromTime;
     }
 
-    public void setFromTime(LocalDateTime fromTime) {
-        this.fromTime = fromTime;
-    }
-
     public LocalDateTime getToTime() {
         return toTime;
     }
 
-    public void setToTime(LocalDateTime toTime) {
-        this.toTime = toTime;
+    public CarReservationDto toDto() {
+        return new CarReservationDto(id, userId, carId, fromTime, toTime);
     }
 
-    private Long id;
+    public Long getUserId() {
+        return userId;
+    }
 
-//    private Car car;
-
-    private LocalDateTime fromTime;
-
-    private LocalDateTime toTime;
-
-//    public Car getCar() {
-//        return car;
-//    }
-//
-//    public void setCar(Car car) {
-//        this.car = car;
-//    }
+    public Long getId() {
+        return id;
+    }
 }

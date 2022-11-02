@@ -1,4 +1,4 @@
-package com.example.carreservation.repo;
+package com.example.carreservation.repo.jpa.entity;
 
 import com.example.carreservation.domain.CarReservation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -63,21 +63,7 @@ public class CarReservationEntity {
     }
 
     public CarReservation toCarReservation() {
-        return new CarReservation(this.getId(), this.getFromTime(), this.getToTime());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        CarReservationEntity that = (CarReservationEntity) o;
-        return id != null && Objects.equals(id, that.id) && carEntity.number != null
-                && Objects.equals(carEntity.number, that.carEntity.number);
-    }
-
-    @Override
-    public int hashCode() {
-        return carEntity.number.hashCode();
+        return new CarReservation(this.getId(), userId, this.carEntity.id, this.getFromTime(), this.getToTime());
     }
 
     public Long getUserId() {
@@ -86,5 +72,18 @@ public class CarReservationEntity {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        CarReservationEntity that = (CarReservationEntity) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.carreservation.repo;
+package com.example.carreservation.repo.jpa.entity;
 
 import com.example.carreservation.domain.Car;
 import org.hibernate.Hibernate;
@@ -6,10 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "car")
@@ -19,17 +16,11 @@ public class CarEntity {
     public CarEntity() {
     }
 
-    public CarEntity(Long id, String make, String model, String number) {
-        this.id = id;
+    public CarEntity(String make, String model, String number, Boolean active) {
         this.make = make;
         this.model = model;
         this.number = number;
-    }
-
-    public CarEntity(String make, String model, String number) {
-        this.make = make;
-        this.model = model;
-        this.number = number;
+        this.active = active;
     }
 
     @Id
@@ -42,16 +33,15 @@ public class CarEntity {
     @NaturalId
     @Column
     String number;
+    @Column
+    Boolean active;
 
-    @OneToMany(mappedBy = "carEntity", orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<CarReservationEntity> carReservationEntities = new LinkedHashSet<>();
-
-    public Set<CarReservationEntity> getCarReservationEntities() {
-        return carReservationEntities;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setCarReservationEntities(Set<CarReservationEntity> carReservationEntities) {
-        this.carReservationEntities = carReservationEntities;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Long getId() {
@@ -87,9 +77,13 @@ public class CarEntity {
     }
 
     public Car toCar() {
-        return new Car(this.id, this.make, this.model, this.number,
-                this.carReservationEntities.stream().map(CarReservationEntity::toCarReservation).collect(Collectors.toList())
-        );
+        return new Car(this.id, this.make, this.model, this.number, active);
+    }
+
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" + "make = " + make + ", " + "model = " + model + ", " + "number = " + number + ")";
     }
 
     @Override
@@ -97,16 +91,12 @@ public class CarEntity {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         CarEntity carEntity = (CarEntity) o;
-        return number != null && Objects.equals(number, carEntity.number);
+        return id != null && Objects.equals(id, carEntity.id)
+                && number != null && Objects.equals(number, carEntity.number);
     }
 
     @Override
     public int hashCode() {
-        return number.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" + "make = " + make + ", " + "model = " + model + ", " + "number = " + number + ")";
+        return Objects.hash(number);
     }
 }
