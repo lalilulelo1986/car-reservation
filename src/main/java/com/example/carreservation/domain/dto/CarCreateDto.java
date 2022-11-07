@@ -4,9 +4,13 @@ import javax.validation.constraints.NotBlank;
 
 public class CarCreateDto {
     @NotBlank
-    private final String make;
+    private String make;
     @NotBlank
-    private final String model;
+    private String model;
+
+    private CarCreateDto() {
+        super();
+    }
 
     public CarCreateDto(String make, String model) {
         this.make = make;

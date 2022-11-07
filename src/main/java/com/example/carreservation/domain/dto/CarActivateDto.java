@@ -4,7 +4,11 @@ import javax.validation.constraints.NotNull;
 
 public class CarActivateDto {
     @NotNull
-    private final Boolean active;
+    private Boolean active;
+
+    private CarActivateDto() {
+        super();
+    }
 
     public CarActivateDto(Boolean active) {
         this.active = active;

@@ -1,11 +1,14 @@
 package com.example.carreservation.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.constraints.NotBlank;
 
 public class CarDto {
     private Long id;
+    @NotBlank
     private String make;
+    @NotBlank
     private String model;
+    @NotBlank
     private String number;
 
     private CarDto() {
@@ -17,7 +20,6 @@ public class CarDto {
         this.make = make;
         this.model = model;
         this.number = number;
-//        this.active = active;
     }
 
     public String getMake() {

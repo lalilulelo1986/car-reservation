@@ -2,21 +2,22 @@ package com.example.carreservation.controller;
 
 import com.example.carreservation.domain.dto.CarCreateDto;
 import com.example.carreservation.domain.dto.CarDto;
+import com.example.carreservation.domain.repo.CarRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.client.RestTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CarControllerTest {
-    @LocalServerPort
+    @Value("${local.server.port}")
     private Integer port;
+    @Autowired
+    private CarRepository carRepository;
 
     @Test
     void findById() {
@@ -34,6 +35,9 @@ class CarControllerTest {
         // then
         assertEquals("audi", getResponse.getBody().getMake());
         assertEquals("model", getResponse.getBody().getModel());
+
+        // clean
+        carRepository.delete(body.getId());
     }
 
     @Test

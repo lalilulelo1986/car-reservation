@@ -2,7 +2,6 @@ package com.example.carreservation.domain;
 
 import com.example.carreservation.domain.dto.CarDto;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 

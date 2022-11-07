@@ -1,13 +1,22 @@
 package com.example.carreservation.domain.dto;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 public class CarReservationDto {
-    private final Long id;
-    private final Long userId;
-    private final Long carId;
-    private final LocalDateTime fromTime;
-    private final LocalDateTime toTime;
+    private Long id;
+    @NotBlank
+    private Long userId;
+    @NotBlank
+    private Long carId;
+    @NotBlank
+    private LocalDateTime fromTime;
+    @NotBlank
+    private LocalDateTime toTime;
+
+    private CarReservationDto() {
+        super();
+    }
 
     public CarReservationDto(Long id, Long userId, Long carId, LocalDateTime fromTime, LocalDateTime toTime) {
         this.id = id;
