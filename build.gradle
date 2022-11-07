@@ -21,7 +21,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.jetbrains:annotations:23.0.0'
-//    implementation 'io.springfox:springfox-boot-starter:3.0.0' spring boot bug
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
